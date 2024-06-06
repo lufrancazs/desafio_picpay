@@ -33,6 +33,16 @@ public class Transfer {
 	
 	public Transfer() {
 	}
+	
+
+	public Transfer(Wallet sender, Wallet receiver, BigDecimal value) {
+		super();
+		this.sender = sender;
+		this.receiver = receiver;
+		this.value = value;
+	}
+
+
 
 	public UUID getId() {
 		return id;

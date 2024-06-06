@@ -20,6 +20,8 @@ public class WalletNotFoundException extends PicPayException{
 		
 		pb.setTitle("Wallet not found");
 		pb.setDetail("There is no wallet whith id " + walletId + ".");
+		
+		return pb;
 	}
 	
 	

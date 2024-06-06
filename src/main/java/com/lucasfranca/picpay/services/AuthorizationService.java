@@ -3,7 +3,7 @@ package com.lucasfranca.picpay.services;
 import org.springframework.stereotype.Service;
 
 import com.lucasfranca.picpay.client.AuthorizationClient;
-import com.lucasfranca.picpay.entity.Transfer;
+import com.lucasfranca.picpay.dto.TransferDto;
 import com.lucasfranca.picpay.exceptions.PicPayException;
 
 @Service
@@ -15,7 +15,7 @@ public class AuthorizationService {
 		this.authorizationClient = authorizationClient;
 	}
 	
-	public boolean isAuthorized(Transfer transfer) {
+	public boolean isAuthorized(TransferDto transferDto) {
 		
 		
 		var resp = authorizationClient.isAuthorized();

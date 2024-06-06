@@ -1,5 +1,7 @@
 package com.lucasfranca.picpay.services;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.stereotype.Service;
 
 import com.lucasfranca.picpay.dto.TransferDto;
@@ -11,6 +13,8 @@ import com.lucasfranca.picpay.exceptions.TransferNotAuthorizedException;
 import com.lucasfranca.picpay.exceptions.WalletNotFoundException;
 import com.lucasfranca.picpay.repository.TransferRepository;
 import com.lucasfranca.picpay.repository.WalletRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class TransferService {
@@ -33,7 +37,7 @@ public class TransferService {
 	}
 
 
-
+	@Transactional
 	public Transfer transfer(TransferDto transferDto) {
 		
 		var sender = walletRepository.findById(transferDto.payer())
@@ -42,6 +46,20 @@ public class TransferService {
 		var receiver = walletRepository.findById(transferDto.payee())
 				.orElseThrow(() -> new WalletNotFoundException(transferDto.payee()));
 		
+		validateTransfer(transferDto, sender);
+		
+		sender.debit(transferDto.value());
+		receiver.credit(transferDto.value());
+		
+		var transfer = new Transfer(sender, receiver, transferDto.value());
+		
+		walletRepository.save(sender);
+		walletRepository.save(receiver);
+		var transferResult = transferRepository.save(transfer);
+
+		CompletableFuture.runAsync(() -> notificationService.sendNotification(transferResult));
+		
+		return transferResult;
 		}
 	
 	private void validateTransfer(TransferDto transferDto, Wallet sender) {
