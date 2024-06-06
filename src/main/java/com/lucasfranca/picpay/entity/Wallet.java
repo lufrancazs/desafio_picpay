@@ -54,6 +54,10 @@ public class Wallet {
 	public boolean isTransferAllowedForWalletType() {
 		return this.walletType.equals(WalletType.Enum.USER.get());
 	}	
+	
+	public boolean isBalancerEqualOrGreatherThan(BigDecimal value) {
+		return this.balance.doubleValue() >= value.doubleValue();
+	}
 
 
 
@@ -125,6 +129,9 @@ public class Wallet {
 	public void setWalletType(WalletType walletType) {
 		this.walletType = walletType;
 	}
+
+
+
 	
 
 }

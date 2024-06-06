@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.lucasfranca.picpay.dto.TransferDto;
 import com.lucasfranca.picpay.entity.Transfer;
 import com.lucasfranca.picpay.entity.Wallet;
+import com.lucasfranca.picpay.exceptions.InsufficientBalanceException;
 import com.lucasfranca.picpay.exceptions.TransferNotAllowedForWalletTypeException;
 import com.lucasfranca.picpay.exceptions.WalletNotFoundException;
 import com.lucasfranca.picpay.repository.TransferRepository;
@@ -47,6 +48,10 @@ public class TransferService {
 		if(sender.isTransferAllowedForWalletType()) {
 			throw new TransferNotAllowedForWalletTypeException();
 	}
+		
+		if(!sender.isBalancerEqualOrGreatherThan(transferDto.value())) {
+			throw new InsufficientBalanceException();
+		}
 		
 	}
 
