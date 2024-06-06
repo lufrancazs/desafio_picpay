@@ -3,7 +3,7 @@ package com.lucasfranca.picpay.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 
-public class InsufficientBalanceException extends PicPayException {
+public class TransferNotAuthorizedException extends PicPayException {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -11,8 +11,8 @@ public class InsufficientBalanceException extends PicPayException {
 	public ProblemDetail toProblemDetail() {
 		var pb = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
 		
-		pb.setTitle("Insufficient balance.");
-		pb.setDetail("You cannot transfer a value bigger than you current balance.");
+		pb.setTitle("Transfer not authorized.");
+		pb.setDetail("Authorization service not authorized this transfer.");
 		
 		return pb;
 	}

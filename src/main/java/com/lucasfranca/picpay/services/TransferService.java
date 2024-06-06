@@ -7,6 +7,7 @@ import com.lucasfranca.picpay.entity.Transfer;
 import com.lucasfranca.picpay.entity.Wallet;
 import com.lucasfranca.picpay.exceptions.InsufficientBalanceException;
 import com.lucasfranca.picpay.exceptions.TransferNotAllowedForWalletTypeException;
+import com.lucasfranca.picpay.exceptions.TransferNotAuthorizedException;
 import com.lucasfranca.picpay.exceptions.WalletNotFoundException;
 import com.lucasfranca.picpay.repository.TransferRepository;
 import com.lucasfranca.picpay.repository.WalletRepository;
@@ -51,6 +52,10 @@ public class TransferService {
 		
 		if(!sender.isBalancerEqualOrGreatherThan(transferDto.value())) {
 			throw new InsufficientBalanceException();
+		}
+		
+		if(!authorizationService.isAuthorized(transferDto)) {
+			throw new TransferNotAuthorizedException();
 		}
 		
 	}
