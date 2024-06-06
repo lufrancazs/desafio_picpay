@@ -42,7 +42,6 @@ public class Wallet {
 	public Wallet() {
 	}
 	
-	
 
 	public Wallet(String fullName, String cpfCnpj, String email, String password, WalletType walletType) {
 		this.fullName = fullName;
@@ -51,6 +50,10 @@ public class Wallet {
 		this.password = password;
 		this.walletType = walletType;
 	}
+	
+	public boolean isTransferAllowedForWalletType() {
+		return this.walletType.equals(WalletType.Enum.USER.get());
+	}	
 
 
 
@@ -121,7 +124,7 @@ public class Wallet {
 
 	public void setWalletType(WalletType walletType) {
 		this.walletType = walletType;
-	}	
+	}
 	
 
 }
