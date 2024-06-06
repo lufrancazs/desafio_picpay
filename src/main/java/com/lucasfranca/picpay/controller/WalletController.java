@@ -9,6 +9,8 @@ import com.lucasfranca.picpay.dto.CreateWalletDto;
 import com.lucasfranca.picpay.entity.Wallet;
 import com.lucasfranca.picpay.services.WalletService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class WalletController {
 	
@@ -19,7 +21,7 @@ public class WalletController {
 	}
 	
 	@PostMapping("/wallets")
-	public ResponseEntity<Wallet> createWallet(@RequestBody CreateWalletDto dto){
+	public ResponseEntity<Wallet> createWallet(@RequestBody @Valid CreateWalletDto dto){
 		
 		var wallet = walletService.createWallet(dto);
 		
