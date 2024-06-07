@@ -64,7 +64,7 @@ public class TransferService {
 	
 	private void validateTransfer(TransferDto transferDto, Wallet sender) {
 		
-		if(sender.isTransferAllowedForWalletType()) {
+		if(!sender.isTransferAllowedForWalletType()) {
 			throw new TransferNotAllowedForWalletTypeException();
 	}
 		
@@ -72,7 +72,7 @@ public class TransferService {
 			throw new InsufficientBalanceException();
 		}
 		
-		if(!authorizationService.isAuthorized(transferDto)) {
+		if(authorizationService.isAuthorized(transferDto)) {
 			throw new TransferNotAuthorizedException();
 		}
 		

@@ -15,7 +15,7 @@ public class AuthorizationService {
 		this.authorizationClient = authorizationClient;
 	}
 	
-	public boolean isAuthorized(TransferDto transferDto) {
+	public boolean isAuthorized(TransferDto transfer) {
 		
 		
 		var resp = authorizationClient.isAuthorized();

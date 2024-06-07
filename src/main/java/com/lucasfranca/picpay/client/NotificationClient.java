@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.lucasfranca.picpay.entity.Transfer;
 
-@FeignClient(url = "${client.notification-service.url}")
+@FeignClient(name = "NotificationClient", url = "${client.notification-service.url}")
 public interface NotificationClient {
 	
 	@PostMapping

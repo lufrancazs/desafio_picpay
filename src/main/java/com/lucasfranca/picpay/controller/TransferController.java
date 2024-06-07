@@ -9,6 +9,8 @@ import com.lucasfranca.picpay.dto.TransferDto;
 import com.lucasfranca.picpay.entity.Transfer;
 import com.lucasfranca.picpay.services.TransferService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class TransferController {
 	
@@ -19,7 +21,7 @@ public class TransferController {
 	}
 	
 	@PostMapping("/transfer")
-	public ResponseEntity<Transfer> transfer(@RequestBody TransferDto dto){
+	public ResponseEntity<Transfer> transfer(@RequestBody @Valid TransferDto dto){
 		
 		var resp = transferService.transfer(dto);
 		

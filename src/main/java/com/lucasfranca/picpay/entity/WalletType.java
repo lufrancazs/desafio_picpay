@@ -64,7 +64,8 @@ public class WalletType {
 
 
 	public enum Enum {
-		USER(1L, "user"), MERCHANT(2L, "merchant");
+		USER(1L, "user"), 
+		MERCHANT(2L, "merchant");
 
 		private Enum(Long id, String description) {
 			this.id = id;
